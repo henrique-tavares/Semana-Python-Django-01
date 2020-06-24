@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block conteudo %}
+
+<form method="post" style="margin-top: 64px;">
+  {% csrf_token %}
+
+  {% for message in messages %}
+  <div class="alert alert-danger" style="margin-bottom: 32px;">
+    {{ message }}
+  </div>
+  {% endfor %}
+
+  <div class="form-group">
+    <label>Nome de usuário: </label>
+    {{ form_login.username|add_class:'form-control' }}
+  </div>
+
+  <div class="form-group">
+    <label>Senha: </label>
+    {{ form_login.password|add_class:'form-control' }}
+  </div>
+
+  <div class="d-inline-flex" style="margin-top: 32px;">
+    <div class="form-group">
+      <input class="btn btn-primary" type="submit" value="Entrar" style="margin-right: 32px;">
+    </div>
+
+    <a href="{% url 'cadastrar_usuario' %}">
+      <input class="btn btn-primary mb-3" type="button" value="Cadastrar usuario">
+    </a>
+  </div>
+</form>
+
+{% endblock conteudo %}
