@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block conteudo %}
+
+<form method="post" style="margin-top: 64px">
+  {% csrf_token %}
+
+  <div class="form-group">
+    {{ form_tarefa.titulo.errors }}
+    <label for="id_titulo">Título: </label>
+    {{ form_tarefa.titulo|add_class:'form-control' }}
+  </div>
+
+  <div class="form-group">
+    {{ form_tarefa.descricao.errors }}
+    <label for="id_descricao">Descrição: </label>
+    {{ form_tarefa.descricao|add_class:'form-control' }}
+  </div>
+
+  <div class="form-group">
+    {{ form_tarefa.data_expiracao.errors }}
+    <label for="id_data_expiracao">Data de expiração: </label>
+    {{ form_tarefa.data_expiracao|add_class:'form-control'|attr:'type:date' }}
+  </div>
+
+  <div class="form-group">
+    {{ form_tarefa.prioridade.errors }}
+    <label for="id_prioridade">Prioridade: </label>
+    {{ form_tarefa.prioridade|add_class:'form-control' }}
+  </div>
+
+  <div class="form-group" style="margin-top: 32px">
+    <input class="btn btn-primary" type="submit" value="Salvar" />
+  </div>
+</form>
+
+{% endblock conteudo %}

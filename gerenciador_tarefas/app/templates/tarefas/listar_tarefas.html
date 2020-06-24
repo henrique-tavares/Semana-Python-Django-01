@@ -1,31 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-{% load static %}
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="{% static 'app/css/bootstrap.min.css' %}">
-</head>
+{% block conteudo %}
 
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Gerenciador de Tarefas - Treinaweb</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                <a class="nav-item nav-link active" href="{% url 'listar_tarefas' %}">Listar Tarefas</a>
-            </div>
-        </div>
-    </nav>
-    <main class="container">
-        <h1>Listagem de tarefas</h1>
-        <h2>{{ nome_tarefa }}</h2>
-    </main>
-</body>
+<h1 style="margin-top: 24px; margin-bottom: 48px">Listagem de tarefas</h1>
 
-</html>
+{% for tarefa in tarefas %}
+<div class="card mb-3">
+  <div class="card-header">
+    Prioridade: {{ tarefa.get_prioridade_display }}
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">{{ tarefa.titulo }}</h5>
+    <p class="card-text">{{ tarefa.descricao }}</p>
+    <hr>
+    <a class="card-link" href="{% url 'editar_tarefa' tarefa.id %}">Alterar tarefa</a>
+    <a class="card-link" href="{% url 'remover_tarefa' tarefa.id %}">Remover tarefa</a>
+  </div>
+  <div class="card-footer text-muted">
+    Data limite: {{ tarefa.data_expiracao|date:'d/m/Y' }}
+  </div>
+</div>
+{% endfor %}
+
+<a href="{% url 'cadastrar_tarefa' %}">
+  <input class="btn btn-primary mb-3" type="button" value="Cadastrar tarefa" style="margin-top: 32px">
+</a>
+
+{% endblock conteudo %}
